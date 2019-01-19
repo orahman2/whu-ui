@@ -13,6 +13,7 @@ export default class App extends React.Component {
   constructor(props){
     super(props)
     this.setCurrentMode = this.setCurrentMode.bind(this)
+    this.user = "Reem"
   }
 
   setCurrentMode = (currentMode) =>{
@@ -27,7 +28,7 @@ export default class App extends React.Component {
     if (this.state.mode == constants.modes.LAUNCHED) {
       currentScreen = <Login setCurrentMode={this.setCurrentMode} />
     } else if (this.state.mode == constants.modes.EDIT_PROFILE) {
-      currentScreen = <EditProfile setCurrentMode={this.setCurrentMode} />
+      currentScreen = <EditProfile setCurrentMode={this.setCurrentMode} userData={constants.userData} user={this.user} />
     } else if (this.state.mode == constants.modes.LOGGED_IN) {
       currentScreen = <CameraScreen setCurrentMode={this.setCurrentMode} />
     } else {
