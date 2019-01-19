@@ -22,8 +22,6 @@ export default class App extends React.Component {
   }
 
   render() {
-    console.log('render')
-    console.log(this.state.mode)
     if (this.state.mode == constants.modes.LAUNCHED) {
       currentScreen = <Login setCurrentMode={this.setCurrentMode} />
     } else if (this.state.mode == constants.modes.EDIT_PROFILE) {

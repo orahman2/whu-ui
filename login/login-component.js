@@ -8,7 +8,6 @@ export default class Login extends React.Component {
       <View style={styles.container}>
         <TextInput
           placeholder="Phone number"
-          placeholderTextColor="gray"
         />
         <TextInput
           placeholder="Password"
@@ -22,7 +21,6 @@ export default class Login extends React.Component {
         />
         <TextInput
           placeholder="Name"
-          placeholderTextColor="gray"
         />
         <Button
         title="Register"
