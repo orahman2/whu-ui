@@ -1,9 +1,6 @@
 import React from 'react';
+import constants from '../constants';
 import { Button, StyleSheet, TextInput, View } from 'react-native';
-
-function doNothing(props) {
-    console.log('hi');
-  }
 
 export default class Login extends React.Component {
   render() {
@@ -19,7 +16,9 @@ export default class Login extends React.Component {
         />
         <Button
         title="Login"
-        onPress={doNothing()}
+        onPress={() => {
+            this.props.setCurrentMode(constants.modes.LOGGED_IN)
+        }}
         />
         <TextInput
           placeholder="Name"
@@ -27,7 +26,9 @@ export default class Login extends React.Component {
         />
         <Button
         title="Register"
-        onPress={doNothing()}
+        onPress={() => {
+            this.props.setCurrentMode(constants.modes.EDIT_PROFILE)
+        }}
         />
       </View>
     );
