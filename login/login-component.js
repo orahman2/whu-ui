@@ -12,15 +12,23 @@ export default class Login extends React.Component {
         <TextInput
           placeholder="Phone number"
           placeholderTextColor="gray"
-          />
-          <Button
-            title="Register"
-            onPress={doNothing()}
-          />
-          <Button
-            title="Login"
-            onPress={doNothing()}
-          />
+        />
+        <TextInput
+          placeholder="Password"
+          secureTextEntry={true}
+        />
+        <Button
+        title="Login"
+        onPress={doNothing()}
+        />
+        <TextInput
+          placeholder="Name"
+          placeholderTextColor="gray"
+        />
+        <Button
+        title="Register"
+        onPress={doNothing()}
+        />
       </View>
     );
   }
