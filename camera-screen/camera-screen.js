@@ -1,56 +1,60 @@
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
-import { Camera, Permissions } from 'expo';
+import { Button, StyleSheet, TextInput, View, ScrollView, Text } from 'react-native';
+import { ImagePicker, Permissions, Constants } from 'expo';
 
-export default class CameraExample extends React.Component {
-  state = {
-    hasCameraPermission: null,
-    type: Camera.Constants.Type.back,
-  };
+export default class CameraScreen extends React.Component {
+    state = {
+        result: null,
+    };
 
-  async componentDidMount() {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    this.setState({ hasCameraPermission: status === 'granted' });
-  }
+    useLibraryHandler = async () => {
+    await this.askPermissionsAsync();
+    let result = await ImagePicker.launchImageLibraryAsync({
+        allowsEditing: true,
+        aspect: [4, 3],
+        base64: false,
+    });
+    this.setState({ result });
+    };
 
-  render() {
-    const { hasCameraPermission } = this.state;
-    if (hasCameraPermission === null) {
-      return <View />;
-    } else if (hasCameraPermission === false) {
-      return <Text>No access to camera</Text>;
-    } else {
-      return (
-        <View style={{ flex: 1 }}>
-          <Camera style={{ flex: 1 }} type={this.state.type}>
-            <View
-              style={{
-                flex: 1,
-                backgroundColor: 'transparent',
-                flexDirection: 'row',
-              }}>
-              <TouchableOpacity
-                style={{
-                  flex: 0.1,
-                  alignSelf: 'flex-end',
-                  alignItems: 'center',
-                }}
-                onPress={() => {
-                  this.setState({
-                    type: this.state.type === Camera.Constants.Type.back
-                      ? Camera.Constants.Type.front
-                      : Camera.Constants.Type.back,
-                  });
-                }}>
-                <Text
-                  style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
-                  {' '}Flip{' '}
+    askPermissionsAsync = async () => {
+    await Permissions.askAsync(Permissions.CAMERA);
+    await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    // you would probably do something to verify that permissions
+    // are actually granted, but I'm skipping that for brevity
+    };
+
+    useCameraHandler = async () => {
+        await this.askPermissionsAsync();
+        let result = await ImagePicker.launchCameraAsync({
+            allowsEditing: true,
+            aspect: [4, 3],
+            base64: false,
+        });
+        this.setState({ result });
+    };
+    
+    render() {
+        return (
+            <ScrollView style={{flex: 1}} contentContainerStyle={styles.container}>
+                <Button title="launchCameraAsync" onPress={this.useCameraHandler} />
+                <Button
+                title="launchImageLibraryAsync"
+                onPress={this.useLibraryHandler}
+                />
+                <Text style={styles.paragraph}>
+                {JSON.stringify(this.state.result)}
                 </Text>
-              </TouchableOpacity>
-            </View>
-          </Camera>
-        </View>
-      );
+            </ScrollView>
+        );
     }
-  }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
