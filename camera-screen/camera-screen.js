@@ -26,7 +26,7 @@ export default class CameraExample extends React.Component {
             style={{
               flex: 1,
               height: "95%",
-              width: 350,
+              width: 415,
               backgroundColor: "white",
               borderRadius: 5,
               justifyContent: "center",
@@ -43,19 +43,17 @@ export default class CameraExample extends React.Component {
               }}>
               <TouchableOpacity
                 style={{
+                  width: 350,
                   flex: 0.1,
                   alignSelf: 'flex-end',
                   alignItems: 'center',
                 }}
-                onPress={() => {
-                  this.setState({
-                    type: this.state.type === Camera.Constants.Type.back
-                      ? Camera.Constants.Type.front
-                      : Camera.Constants.Type.back,
-                  });
+                onPress={async () => {
+                  let photo = await this.camera.takePictureAsync();
+                  console.log(photo)
                 }}>
                 <Text
-                  style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
+                  style={{ fontSize: 18, marginBottom: 10, width: 350, height: "95%", color: 'white' }}>
                   {' '}Flip{' '}
                 </Text>
               </TouchableOpacity>
