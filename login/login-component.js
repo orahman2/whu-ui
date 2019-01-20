@@ -1,5 +1,6 @@
 import React from 'react';
 import constants from '../constants';
+import {detectImage} from '../clients/azure-client';
 import { Button, StyleSheet, TextInput, View } from 'react-native';
 
 export default class Login extends React.Component {
@@ -25,7 +26,8 @@ export default class Login extends React.Component {
         <Button
         title="Register"
         onPress={() => {
-            this.props.setCurrentMode(constants.modes.EDIT_PROFILE)
+          detectImage('973bf55a-c1f4-436e-85e5-6579fe495407')
+            // this.props.setCurrentMode(constants.modes.EDIT_PROFILE)
         }}
         />
       </View>
